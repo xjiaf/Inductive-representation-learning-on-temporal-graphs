@@ -2,25 +2,23 @@
 #$ -cwd
 #$ -l nvidia_v100            # Can instead use 'nvidia_a100' for the A100 GPUs (if permitted!)
 
-PROJECT_NAME="Inductive-representation-learning-on-temporal-graphs"
-
 module load libs/cuda/11.7.0
 
 # Copy a directory of files from scratch to the GPU node's local NVMe storage
-cp -r ~/scratch/${PROJECT_NAME}/ $TMPDIR
+cp -r ~/scratch/Inductive-representation-learning-on-temporal-graphs/ $TMPDIR
 
 # Process the data with a GPU app, from within the local NVMe storage area
-cd $TMPDIR/${PROJECT_NAME}/
+cd $TMPDIR/Inductive-representation-learning-on-temporal-graphs/
 # python train_self_supervised.py --use_memory --prefix ptgn-attn-wiki --n_runs 5 -p --n_head 4
 python process.py
 python -u learn_edge.py -d mooc --bs 200 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_mooc
 python -u learn_node.py -d mooc --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_mooc
 
 # Copy the results back to the main scratch area
-rsync -av $TMPDIR/${PROJECT_NAME}/ ~/scratch/${PROJECT_NAME}/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/
 
 # The batch system will automatically delete the contents of $TMPDIR at the end of your job.
-cd ~/scratch/${PROJECT_NAME}/
+cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
 git pull
 git add ./log/
 git commit -m "logs updated"
