@@ -52,7 +52,7 @@ NUM_HEADS = args.n_head
 DROP_OUT = args.drop_out
 GPU = args.gpu
 UNIFORM = args.uniform
-NEW_NODE = args.new_node
+# NEW_NODE = args.new_node
 USE_TIME = args.time
 AGG_METHOD = args.agg_method
 ATTN_MODE = args.attn_mode
@@ -105,11 +105,11 @@ def eval_one_epoch(hint, tgan, sampler, src, dst, ts, label):
             src_l_fake, dst_l_fake = sampler.sample(size)
 
             pos_prob, neg_prob = tgan.contrast(src_l_cut, dst_l_cut, dst_l_fake, ts_l_cut, NUM_NEIGHBORS)
-            
+
             pred_score = np.concatenate([(pos_prob).cpu().numpy(), (neg_prob).cpu().numpy()])
             pred_label = pred_score > 0.5
             true_label = np.concatenate([np.ones(size), np.zeros(size)])
-            
+
             val_acc.append((pred_label == true_label).mean())
             val_ap.append(average_precision_score(true_label, pred_score))
             # val_f1.append(f1_score(true_label, pred_label))
@@ -226,11 +226,11 @@ num_batch = math.ceil(num_instance / BATCH_SIZE)
 logger.info('num of training instances: {}'.format(num_instance))
 logger.info('num of batches per epoch: {}'.format(num_batch))
 idx_list = np.arange(num_instance)
-np.random.shuffle(idx_list) 
+np.random.shuffle(idx_list)
 
 early_stopper = EarlyStopMonitor()
 for epoch in range(NUM_EPOCH):
-    # Training 
+    # Training
     # training use only training graph
     tgan.ngh_finder = train_ngh_finder
     acc, ap, f1, auc, m_loss = [], [], [], [], []
@@ -248,18 +248,18 @@ for epoch in range(NUM_EPOCH):
         label_l_cut = train_label_l[s_idx:e_idx]
         size = len(src_l_cut)
         src_l_fake, dst_l_fake = train_rand_sampler.sample(size)
-        
+
         with torch.no_grad():
             pos_label = torch.ones(size, dtype=torch.float, device=device)
             neg_label = torch.zeros(size, dtype=torch.float, device=device)
-        
+
         optimizer.zero_grad()
         tgan = tgan.train()
         pos_prob, neg_prob = tgan.contrast(src_l_cut, dst_l_cut, dst_l_fake, ts_l_cut, NUM_NEIGHBORS)
-    
+
         loss = criterion(pos_prob, pos_label)
         loss += criterion(neg_prob, neg_label)
-        
+
         loss.backward()
         optimizer.step()
         # get training results
@@ -276,12 +276,12 @@ for epoch in range(NUM_EPOCH):
 
     # validation phase use all information
     tgan.ngh_finder = full_ngh_finder
-    val_acc, val_ap, val_f1, val_auc = eval_one_epoch('val for old nodes', tgan, val_rand_sampler, val_src_l, 
+    val_acc, val_ap, val_f1, val_auc = eval_one_epoch('val for old nodes', tgan, val_rand_sampler, val_src_l,
     val_dst_l, val_ts_l, val_label_l)
 
-    nn_val_acc, nn_val_ap, nn_val_f1, nn_val_auc = eval_one_epoch('val for new nodes', tgan, val_rand_sampler, nn_val_src_l, 
+    nn_val_acc, nn_val_ap, nn_val_f1, nn_val_auc = eval_one_epoch('val for new nodes', tgan, val_rand_sampler, nn_val_src_l,
     nn_val_dst_l, nn_val_ts_l, nn_val_label_l)
-        
+
     logger.info('epoch: {}:'.format(epoch))
     logger.info('Epoch mean loss: {}'.format(np.mean(m_loss)))
     logger.info('train acc: {}, val acc: {}, new node val acc: {}'.format(np.mean(acc), val_acc, nn_val_acc))
@@ -303,10 +303,10 @@ for epoch in range(NUM_EPOCH):
 
 # testing phase use all information
 tgan.ngh_finder = full_ngh_finder
-test_acc, test_ap, test_f1, test_auc = eval_one_epoch('test for old nodes', tgan, test_rand_sampler, test_src_l, 
+test_acc, test_ap, test_f1, test_auc = eval_one_epoch('test for old nodes', tgan, test_rand_sampler, test_src_l,
 test_dst_l, test_ts_l, test_label_l)
 
-nn_test_acc, nn_test_ap, nn_test_f1, nn_test_auc = eval_one_epoch('test for new nodes', tgan, nn_test_rand_sampler, nn_test_src_l, 
+nn_test_acc, nn_test_ap, nn_test_f1, nn_test_auc = eval_one_epoch('test for new nodes', tgan, nn_test_rand_sampler, nn_test_src_l,
 nn_test_dst_l, nn_test_ts_l, nn_test_label_l)
 
 logger.info('Test statistics: Old nodes -- acc: {}, auc: {}, ap: {}'.format(test_acc, test_auc, test_ap))
@@ -315,9 +315,3 @@ logger.info('Test statistics: New nodes -- acc: {}, auc: {}, ap: {}'.format(nn_t
 logger.info('Saving TGAN model')
 torch.save(tgan.state_dict(), MODEL_SAVE_PATH)
 logger.info('TGAN models saved')
-
- 
-
-
-
-
