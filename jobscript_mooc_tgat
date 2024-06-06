@@ -15,7 +15,7 @@ python -u learn_edge.py -d mooc --bs 200 --uniform  --n_degree 20 --agg_method a
 python -u learn_node.py -d mooc --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_mooc
 
 # Copy the results back to the main scratch area
-rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/log/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/log/
 
 # The batch system will automatically delete the contents of $TMPDIR at the end of your job.
 cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
