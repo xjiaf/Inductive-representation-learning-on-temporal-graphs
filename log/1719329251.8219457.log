@@ -1,0 +1,68 @@
+2024-06-25 16:27:31,822 - root - INFO - Namespace(data='reddit_fm', bs=200, prefix='tgat_reddit_fm', n_degree=20, n_head=2, n_epoch=50, n_layer=2, lr=0.0001, drop_out=0.1, gpu=0, node_dim=100, time_dim=100, agg_method='attn', attn_mode='prod', time='time', uniform=True)
+2024-06-25 16:27:36,317 - module - INFO - Aggregation uses attention model
+2024-06-25 16:27:36,414 - module - INFO - Using scaled prod attention
+2024-06-25 16:27:36,441 - module - INFO - Using scaled prod attention
+2024-06-25 16:27:36,441 - module - INFO - Using time encoding
+2024-06-25 16:27:48,106 - root - INFO - num of training instances: 389989
+2024-06-25 16:27:48,107 - root - INFO - num of batches per epoch: 1950
+2024-06-25 16:27:48,118 - root - INFO - start 0 epoch
+2024-06-25 16:44:03,506 - root - INFO - epoch: 0:
+2024-06-25 16:44:03,507 - root - INFO - Epoch mean loss: 1.0242546147566576
+2024-06-25 16:44:03,507 - root - INFO - train acc: 0.7458282324058919, val acc: 0.6663296659728417, new node val acc: 0.661145351823318
+2024-06-25 16:44:03,507 - root - INFO - train auc: 0.818411693932746, val auc: 0.7682836092113523, new node val auc: 0.7576647834274952
+2024-06-25 16:44:03,508 - root - INFO - train ap: 0.7834409834961913, val ap: 0.7466682802127746, new node val ap: 0.7382668950944784
+2024-06-25 16:44:04,932 - root - INFO - start 1 epoch
+2024-06-25 17:02:35,780 - root - INFO - epoch: 1:
+2024-06-25 17:02:35,781 - root - INFO - Epoch mean loss: 0.9634889964262644
+2024-06-25 17:02:35,781 - root - INFO - train acc: 0.7651853791598471, val acc: 0.6918475567449698, new node val acc: 0.6911145351823318
+2024-06-25 17:02:35,782 - root - INFO - train auc: 0.8399130517376466, val auc: 0.7751045693329367, new node val auc: 0.7727598014038691
+2024-06-25 17:02:35,782 - root - INFO - train ap: 0.810448439658507, val ap: 0.7518812981883158, new node val ap: 0.7515795386069238
+2024-06-25 17:02:37,398 - root - INFO - start 2 epoch
+2024-06-25 17:24:13,206 - root - INFO - epoch: 2:
+2024-06-25 17:24:13,207 - root - INFO - Epoch mean loss: 0.9469691736881549
+2024-06-25 17:24:13,207 - root - INFO - train acc: 0.7711658483360612, val acc: 0.6743334324511845, new node val acc: 0.6722393425783256
+2024-06-25 17:24:13,207 - root - INFO - train auc: 0.8461027662070085, val auc: 0.7762229490864638, new node val auc: 0.7709673001198425
+2024-06-25 17:24:13,208 - root - INFO - train ap: 0.8181529895326506, val ap: 0.7554674599498996, new node val ap: 0.7522632685676309
+2024-06-25 17:24:14,872 - root - INFO - start 3 epoch
+2024-06-25 17:45:16,479 - root - INFO - epoch: 3:
+2024-06-25 17:45:16,479 - root - INFO - Epoch mean loss: 0.9338877793458792
+2024-06-25 17:45:16,479 - root - INFO - train acc: 0.7751593289689035, val acc: 0.6867231638418079, new node val acc: 0.6848228043143298
+2024-06-25 17:45:16,480 - root - INFO - train auc: 0.8501152281256166, val auc: 0.7828028876333961, new node val auc: 0.7781664098613251
+2024-06-25 17:45:16,480 - root - INFO - train ap: 0.8225678260500434, val ap: 0.7613633431710365, new node val ap: 0.7594240270984796
+2024-06-25 17:45:18,090 - root - INFO - start 4 epoch
+2024-06-25 18:05:54,503 - root - INFO - epoch: 4:
+2024-06-25 18:05:54,504 - root - INFO - Epoch mean loss: 0.9260328661784147
+2024-06-25 18:05:54,504 - root - INFO - train acc: 0.7780982815057282, val acc: 0.7020170482703935, new node val acc: 0.6980739599383667
+2024-06-25 18:05:54,504 - root - INFO - train auc: 0.8527916980592215, val auc: 0.7839733042587637, new node val auc: 0.7781150487930149
+2024-06-25 18:05:54,505 - root - INFO - train ap: 0.8256586840471144, val ap: 0.7607816603139254, new node val ap: 0.7560759331997084
+2024-06-25 18:05:56,091 - root - INFO - start 5 epoch
+2024-06-25 18:25:40,953 - root - INFO - epoch: 5:
+2024-06-25 18:25:40,954 - root - INFO - Epoch mean loss: 0.9235174604868277
+2024-06-25 18:25:40,954 - root - INFO - train acc: 0.7785214402618658, val acc: 0.7021706809396371, new node val acc: 0.6974576271186441
+2024-06-25 18:25:40,954 - root - INFO - train auc: 0.8539682668164038, val auc: 0.7924189711567053, new node val auc: 0.7844307481595616
+2024-06-25 18:25:40,954 - root - INFO - train ap: 0.8275172847593318, val ap: 0.7712424512219695, new node val ap: 0.7658324629569676
+2024-06-25 18:25:42,401 - root - INFO - start 6 epoch
+2024-06-25 18:41:52,925 - root - INFO - epoch: 6:
+2024-06-25 18:41:52,925 - root - INFO - Epoch mean loss: 0.9202289136250814
+2024-06-25 18:41:52,925 - root - INFO - train acc: 0.7805708128750682, val acc: 0.7039349786896619, new node val acc: 0.7036466358500257
+2024-06-25 18:41:52,925 - root - INFO - train auc: 0.8548318983993222, val auc: 0.7904414048303434, new node val auc: 0.7860743023454888
+2024-06-25 18:41:52,926 - root - INFO - train ap: 0.828042484011224, val ap: 0.7696709287354567, new node val ap: 0.7649738496017788
+2024-06-25 18:41:54,364 - root - INFO - start 7 epoch
+2024-06-25 18:58:04,863 - root - INFO - epoch: 7:
+2024-06-25 18:58:04,864 - root - INFO - Epoch mean loss: 0.9143205513403966
+2024-06-25 18:58:04,864 - root - INFO - train acc: 0.7821794871794872, val acc: 0.6932104271979385, new node val acc: 0.6943759630200309
+2024-06-25 18:58:04,864 - root - INFO - train auc: 0.8571871978938145, val auc: 0.7905061618264115, new node val auc: 0.7899606231809622
+2024-06-25 18:58:04,864 - root - INFO - train ap: 0.8314422328045848, val ap: 0.769103278246432, new node val ap: 0.7702118107714521
+2024-06-25 18:58:06,301 - root - INFO - start 8 epoch
+2024-06-25 19:14:16,437 - root - INFO - epoch: 8:
+2024-06-25 19:14:16,438 - root - INFO - Epoch mean loss: 0.9134116428326338
+2024-06-25 19:14:16,438 - root - INFO - train acc: 0.7823456628477905, val acc: 0.6921746456536824, new node val acc: 0.6892655367231639
+2024-06-25 19:14:16,438 - root - INFO - train auc: 0.8573919755516477, val auc: 0.7890334357551128, new node val auc: 0.784401643554186
+2024-06-25 19:14:16,438 - root - INFO - train ap: 0.8316398366488638, val ap: 0.7660117632867232, new node val ap: 0.764459009201184
+2024-06-25 19:14:16,438 - root - INFO - No improvment over 3 epochs, stop training
+2024-06-25 19:14:16,438 - root - INFO - Loading the best model at epoch 6
+2024-06-25 19:14:17,211 - root - INFO - Loaded the best model at epoch 6 for inference
+2024-06-25 19:18:13,550 - root - INFO - Test statistics: Old nodes -- acc: 0.6850232926950145, auc: 0.7739144943337628, ap: 0.7510333065605183
+2024-06-25 19:18:13,550 - root - INFO - Test statistics: New nodes -- acc: 0.6202489463883171, auc: 0.7087187978767854, ap: 0.6972153484943714
+2024-06-25 19:18:13,550 - root - INFO - Saving TGAN model
+2024-06-25 19:18:14,983 - root - INFO - TGAN models saved
