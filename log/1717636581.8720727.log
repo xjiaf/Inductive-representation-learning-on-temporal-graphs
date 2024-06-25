@@ -1,0 +1,9 @@
+2024-06-06 02:16:21,872 - root - INFO - Namespace(data='mooc', bs=100, prefix='tgat_mooc', n_degree=20, n_neg=1, n_head=2, n_epoch=15, n_layer=2, lr=0.0003, tune=False, drop_out=0.1, gpu=0, node_dim=None, time_dim=None, agg_method='attn', attn_mode='prod', time='time', new_node=False, uniform=True)
+2024-06-06 02:16:22,087 - root - INFO - Training use all train data
+2024-06-06 02:16:24,448 - module - INFO - Aggregation uses attention model
+2024-06-06 02:16:24,449 - module - INFO - Using scaled prod attention
+2024-06-06 02:16:24,450 - module - INFO - Using scaled prod attention
+2024-06-06 02:16:24,450 - module - INFO - Using time encoding
+2024-06-06 02:16:27,826 - root - DEBUG - num of training instances: 349986
+2024-06-06 02:16:27,827 - root - DEBUG - num of batches per epoch: 3500
+2024-06-06 02:16:27,833 - root - INFO - loading saved TGAN model
