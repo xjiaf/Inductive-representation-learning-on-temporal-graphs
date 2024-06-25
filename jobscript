@@ -30,6 +30,10 @@ rsync -av $TMPDIR/tgn/saved_checkpoints/ ~/scratch/tgn/saved_checkpoints/
 rsync -av $TMPDIR/tgn/saved_models/ ~/scratch/tgn/saved_models/
 
 # The batch system will automatically delete the contents of $TMPDIR at the end of your job.
-
+cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
+git pull
+git add ./log/
+git commit -m "logs updated"
+git push
 #$ -m ea
 #$ -M jiafeng.xiong@manchester.ac.uk,xin.quan@manchester.ac.uk    # Send email when finished.
