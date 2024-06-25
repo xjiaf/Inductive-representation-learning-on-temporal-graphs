@@ -1,0 +1,11 @@
+2024-06-25 20:11:38,095 - root - INFO - Namespace(data='wikipedia_fm', bs=100, prefix='tgat_wikipedia_fm', n_degree=20, n_neg=1, n_head=2, n_epoch=15, n_layer=2, lr=0.0003, tune=False, drop_out=0.1, gpu=0, node_dim=None, time_dim=None, agg_method='attn', attn_mode='prod', time='time', new_node=False, uniform=True)
+2024-06-25 20:11:38,320 - root - INFO - Training use all train data
+2024-06-25 20:11:38,996 - module - INFO - Aggregation uses attention model
+2024-06-25 20:11:39,009 - module - INFO - Using scaled prod attention
+2024-06-25 20:11:39,024 - module - INFO - Using scaled prod attention
+2024-06-25 20:11:39,024 - module - INFO - Using time encoding
+2024-06-25 20:11:39,911 - root - DEBUG - num of training instances: 133853
+2024-06-25 20:11:39,912 - root - DEBUG - num of batches per epoch: 1339
+2024-06-25 20:11:39,913 - root - INFO - loading saved TGAN model
+2024-06-25 20:11:40,099 - root - INFO - TGAN models loaded
+2024-06-25 20:11:40,100 - root - INFO - Start training node classification task
