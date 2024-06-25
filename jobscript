@@ -1,0 +1,35 @@
+#!/bin/bash --login
+#$ -cwd
+#$ -l nvidia_v100            # Can instead use 'nvidia_a100' for the A100 GPUs (if permitted!)
+
+run_command() {
+    local data=$1
+    # Use command based on dataset
+    if [[ $data == "wikipedia_fm" ]]; then
+        python -u learn_edge.py -d wikipedia_fm --bs 200 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_wikipedia_fm
+        python -u learn_node.py -d wikipedia_fm --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_wikipedia_fm
+    elif [[ $data == "reddit_fm" ]]; then
+        python -u learn_edge.py -d reddit_fm --bs 200 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_reddit_fm
+        python -u learn_node.py -d reddit_fm --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_reddit_fm
+    fi
+}
+
+module load libs/cuda/11.7.0
+conda activate ja
+# Copy a directory of files from scratch to the GPU node's local NVMe storage
+cp -r ~/scratch/Inductive-representation-learning-on-temporal-graphs/ $TMPDIR
+
+# Process the data with a GPU app, from within the local NVMe storage area
+cd $TMPDIR/Inductive-representation-learning-on-temporal-graphs/
+run_command $1
+
+# Copy the results back to the main scratch area
+rsync -av $TMPDIR/tgn/log/ ~/scratch/tgn/log/
+rsync -av $TMPDIR/tgn/results/ ~/scratch/tgn/results/
+rsync -av $TMPDIR/tgn/saved_checkpoints/ ~/scratch/tgn/saved_checkpoints/
+rsync -av $TMPDIR/tgn/saved_models/ ~/scratch/tgn/saved_models/
+
+# The batch system will automatically delete the contents of $TMPDIR at the end of your job.
+
+#$ -m ea
+#$ -M jiafeng.xiong@manchester.ac.uk,xin.quan@manchester.ac.uk    # Send email when finished.
