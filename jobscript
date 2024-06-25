@@ -24,10 +24,10 @@ cd $TMPDIR/Inductive-representation-learning-on-temporal-graphs/
 run_command $1
 
 # Copy the results back to the main scratch area
-rsync -av $TMPDIR/tgn/log/ ~/scratch/tgn/log/
-rsync -av $TMPDIR/tgn/results/ ~/scratch/tgn/results/
-rsync -av $TMPDIR/tgn/saved_checkpoints/ ~/scratch/tgn/saved_checkpoints/
-rsync -av $TMPDIR/tgn/saved_models/ ~/scratch/tgn/saved_models/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/log/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/log/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/results/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/results/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/saved_checkpoints/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/saved_checkpoints/
+rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/saved_models/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/saved_models/
 
 # The batch system will automatically delete the contents of $TMPDIR at the end of your job.
 cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
