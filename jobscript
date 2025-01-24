@@ -3,19 +3,27 @@
 #$ -l nvidia_v100            # Can instead use 'nvidia_a100' for the A100 GPUs (if permitted!)
 
 run_command() {
-    local data=$1
-    # Use command based on dataset
-    if [[ $data == "wikipedia_fm" ]]; then
-        python -u learn_edge.py -d wikipedia_fm --bs 200 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_wikipedia_fm
-        python -u learn_node.py -d wikipedia_fm --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_wikipedia_fm
-    elif [[ $data == "reddit_fm" ]]; then
-        python -u learn_edge.py -d reddit_fm --bs 200 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_reddit_fm
-        python -u learn_node.py -d reddit_fm --bs 100 --uniform  --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2 --prefix tgat_reddit_fm
-    fi
+   local data=$1
+   local actual_data=${data}
+   local base_cmd="python -u"
+   local base_args="--bs 200 --uniform --n_degree 20 --agg_method attn --attn_mode prod --gpu 0 --n_head 2"
+
+   case $data in
+       "wiki_fm") actual_data="wikipedia_fm" ;;
+       "wiki") actual_data="wikipedia" ;;
+       "reddit_fm") actual_data="reddit" ;;
+       "social") actual_data="socialevolve_2weeks" ;;
+   esac
+
+   $base_cmd learn_edge.py -d $actual_data $base_args --prefix tgat_$actual_data
+
+   if [[ $data != "uci" && $actual_data != "socialevolve_2weeks" ]]; then
+       $base_cmd learn_node.py -d $actual_data ${base_args/200/100} --prefix tgat_$actual_data
+   fi
 }
 
 module load libs/cuda/11.7.0
-conda activate ja
+conda activate twgsl
 # Copy a directory of files from scratch to the GPU node's local NVMe storage
 cp -r ~/scratch/Inductive-representation-learning-on-temporal-graphs/ $TMPDIR
 
@@ -24,16 +32,16 @@ cd $TMPDIR/Inductive-representation-learning-on-temporal-graphs/
 run_command $1
 
 # Copy the results back to the main scratch area
-rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/log/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/log/
-rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/results/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/results/
-rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/saved_checkpoints/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/saved_checkpoints/
-rsync -av $TMPDIR/Inductive-representation-learning-on-temporal-graphs/saved_models/ ~/scratch/Inductive-representation-learning-on-temporal-graphs/saved_models/
+rsync -av --progress \
+    --exclude 'jobscript.e*' \
+    --exclude 'jobscript.o*' \
+    "$TMPDIR/Inductive-representation-learning-on-temporal-graphs/" ~/scratch/Inductive-representation-learning-on-temporal-graphs/
 
 # The batch system will automatically delete the contents of $TMPDIR at the end of your job.
-cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
-git pull
-git add ./log/
-git commit -m "logs updated"
-git push
+# cd ~/scratch/Inductive-representation-learning-on-temporal-graphs/
+# git pull
+# git add ./log/
+# git commit -m "logs updated"
+# git push
 #$ -m ea
 #$ -M jiafeng.xiong@manchester.ac.uk,xin.quan@manchester.ac.uk    # Send email when finished.
